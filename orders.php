@@ -29,17 +29,6 @@ if($_GET['o'] == 'add') {
 
 
 <div class="success-messages pull-right"></div> <!--/success-messages-->
-<h4>
-	<i class='glyphicon glyphicon-circle-arrow-right'></i>
-	<?php if($_GET['o'] == 'add') {
-		echo "Add Order";
-	} else if($_GET['o'] == 'manord') { 
-		echo "Manage Order";
-	} else if($_GET['o'] == 'editOrd') { 
-		echo "Edit Order";
-	}
-	?>	
-</h4>
 
 
 <div class="panel panel-default">
@@ -91,8 +80,8 @@ if($_GET['o'] == 'add') {
 			  	<thead>
 			  		<tr>			  			
 			  			<th style="width:20%;">Category</th>
-			  			<th style="width:15%;">Sub-Category</th>
-			  			<th style="width:20%;">Product</th>
+			  			<th style="width:15%;">Product</th>
+			  			<th style="width:20%;"></th>
 			  			<th style="width:10%;">Price/Gram</th>
 			  			<th style="width:10%;">Available Grams/Qty</th>
 			  			<th style="width:10%;">Actual Grams/Qty</th>			  			
@@ -131,7 +120,7 @@ if($_GET['o'] == 'add') {
 								
 			  				</td>
 			  				<td style="padding-left:20px;">			  					
-			  					<input type="text" name="rate[]" id="rate<?php echo $x; ?>" autocomplete="off" disabled="true" class="form-control" />			  					
+			  					<input type="text" name="rate[]" id="rate<?php echo $x; ?>" autocomplete="off" class="form-control" />			  					
 			  					<input type="hidden" name="rateValue[]" id="rateValue<?php echo $x; ?>" autocomplete="off" class="form-control" />			  					
 			  				</td>
 							<td style="padding-left:20px;padding-top:15px;">

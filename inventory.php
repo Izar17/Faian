@@ -199,7 +199,7 @@ $totalRevenue = ($paymentToday + $paymentTodayOrd)-$expensesToday;
 		<div class="card">
 		  <div class="cardHeader" style="background-color:#245580;">
 		    <h1><?php if($totalGrams) {
-		    	echo $totalGrams.'g';
+		    	echo number_format($totalGrams,2).'g';
 		    	} else {
 		    		echo '0';
 		    		} ?></h1>

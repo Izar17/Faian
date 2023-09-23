@@ -1,7 +1,9 @@
 <?php 
 require_once 'php_action/db_connect.php'; 
 require_once 'includes/header.php'; 
-//$contId = $_GET['contId'];
+if(isset($_GET['contId'])){
+	$contId = $_GET['contId'];
+}
 
 if($_GET['o'] == 'add') { 
 // add order
@@ -103,7 +105,7 @@ if($_GET['o'] == 'add') {
 			</div>
 			
 			<div class="col-md-12">	
-			  <table class="table" id="productTable">
+			  <table class="table table-bordered table-striped table-hover datatable datatable-Customer" id="productTable">
 			  	<thead>
 			  		<tr>			  			
 			  			<th style="width:20%;">Category</th>
@@ -326,7 +328,7 @@ if($_GET['o'] == 'add') {
 
 			<div id="success-messages"></div>
 			
-			<table class="table" id="manageOrderTable">
+			<table class="table table-bordered table-striped table-hover datatable datatable-Customer" id="manageOrderTable">
 				<thead>
 					<tr>
 						<th>#</th>
@@ -352,7 +354,7 @@ if($_GET['o'] == 'add') {
 		} else if($_GET['o'] == 'editOrd') {
 			// get order
 			?>
-			<table class="table" id="manageOrderTabl">
+			<table class="table table-bordered table-striped table-hover datatable datatable-Customer" id="manageOrderTable">
 				<thead>
 					<tr>
 						<th>#</th>
@@ -365,7 +367,8 @@ if($_GET['o'] == 'add') {
 						<th>Payment Status</th>
 						<th>Paid Date/Time</th>
 					</tr>
-					
+				</thead>	
+				<tbody>
 					<?php $orderId = $_GET['i'];
 					$sql = "SELECT pd.order_id, c.name, pd.pay_amount, pd.type, pd.status, pd.paid, pd.due, pd.created_date FROM payment_details pd 
 						inner join layaway_orders la on pd.order_id = la.order_id
@@ -409,7 +412,7 @@ if($_GET['o'] == 'add') {
 					$n++;
 					}
 					?>
-				</thead>
+				</tbody>
 			</table>
 
 			<?php

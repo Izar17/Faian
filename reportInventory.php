@@ -183,13 +183,13 @@ $totalRevenue = ($paymentToday + $paymentTodayOrd)-$expensesToday;
 	
 	<?php  if(isset($_SESSION['userId']) && $_SESSION['userId']==1) {?>
 		
-		<div class="form-group">
+		<!-- <div class="form-group">
 			<label for="startDate" class="col-sm-2 control-label">Start Date</label>
 			<div class="col-sm-4">
 				<input type="text" class="form-control" id="startDate" name="startDate" placeholder="Start Date" />
 				<button type="submit" class="btn btn-success" id="generateReportBtn"> <i class="glyphicon glyphicon-ok-sign"></i> Generate Report</button>
 			</div>
-		</div>
+		</div> -->
 	<div class="col-md-12">
 		<div class="panel panel-default">
 			<div class="panel-heading"> <i class="glyphicon glyphicon-calendar"></i> Payment Type Revenue & Expenses | <?php echo $curDate; ?>

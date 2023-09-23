@@ -7,7 +7,9 @@ $(document).ready(function() {
 	var brandType= $("#brandType").val();
 	manageCategoriesTable = $('#manageCategoriesTable').DataTable({
 		'ajax' : 'php_action/fetchCategories.php?brandId='+brandId+'&brandType='+brandType,
-		'order': []
+		'order': [],
+		'dom': 'Bfrtip',
+		'buttons': ['copy', 'csv', 'excel', 'pdf', 'print']
 	}); // manage categories Data Table
 
 	// on click on submit categories form modal

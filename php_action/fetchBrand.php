@@ -34,7 +34,7 @@ if ($result->num_rows > 0) {
 	    Action <span class="caret"></span>
 	  </button>
 	  <ul class="dropdown-menu">
-	  <li><a  type="button" onclick="addCategories(' . $brandId . ',' . $row[6] . ')"><i class="glyphicon glyphicon-plus-sign"></i> Manage Sub Category</a></li>
+	  <li><a  type="button" onclick="addCategories(' . $brandId . ',' . $row[6] . ')"><i class="glyphicon glyphicon-plus-sign"></i> Manage Products</a></li>
 	  <li><a type="button" data-toggle="modal" data-target="#editBrandModel" onclick="editBrands(' . $brandId . ')"> <i class="glyphicon glyphicon-edit"></i> Edit</a></li>
 	  <li><a type="button" data-toggle="modal" data-target="#removeMemberModal" onclick="removeBrands(' . $brandId . ')"> <i class="glyphicon glyphicon-trash"></i> Remove</a></li>       
 	</ul>
@@ -43,7 +43,7 @@ if ($result->num_rows > 0) {
 		$output['data'][] = array(
 			$row[1],
 			$price,
-			$row[5],
+			number_format($row[5],2),
 			$activeBrands,
 			$button,
 			$row[6]

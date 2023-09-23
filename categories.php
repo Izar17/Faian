@@ -17,13 +17,13 @@ while ($row = $result->fetch_row()) {
 
 		<ol class="breadcrumb">
 			<li><a href="dashboard.php">Home</a></li>
-			<li class="active">Category</li>
+			<li class="active">Products</li>
 		</ol>
 
 		<div class="panel panel-default">
 			<div class="panel-heading">
 				<div class="page-heading"><a href="brand.php"><i class="glyphicon glyphicon-circle-arrow-left"></i></a>
-					Manage Sub Categories |
+					Manage Products |
 					<?php echo $brandName; ?>
 				</div>
 			</div> <!-- /panel-heading -->
@@ -33,15 +33,14 @@ while ($row = $result->fetch_row()) {
 
 				<div class="div-action pull pull-right" style="padding-bottom:20px;">
 					<button class="btn btn-default button1" data-toggle="modal" id="addCategoriesModalBtn"
-						data-target="#addCategoriesModal"> <i class="glyphicon glyphicon-plus-sign"></i> Add Sub
-						Categories </button>
+						data-target="#addCategoriesModal"> <i class="glyphicon glyphicon-plus-sign"></i> Add Product </button>
 				</div> <!-- /div-action -->
 				<input type="hidden" value="<?php echo $brandId; ?>" id="brandId" />
 				<input type="hidden" value="<?php echo $brandType; ?>" id="brandType" />
-				<table class="table" id="manageCategoriesTable">
+				<table  class="table table-bordered table-striped table-hover datatable datatable-Customer" id="manageCategoriesTable">
 					<thead>
 						<tr>
-							<th>Sub Categories Name</th>
+							<th>Product Name</th>
 							<th>Grams/Quantity</th>
 							<th>Status</th>
 							<th style="width:15%;">Options</th>
@@ -66,14 +65,14 @@ while ($row = $result->fetch_row()) {
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
 							aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title"><i class="fa fa-plus"></i> Add Sub Categories</h4>
+					<h4 class="modal-title"><i class="fa fa-plus"></i> Add Product</h4>
 				</div>
 				<div class="modal-body">
 
 					<div id="add-categories-messages"></div>
 
 					<div class="form-group">
-						<label for="categoriesName" class="col-sm-4 control-label">Sub Categories Name: </label>
+						<label for="categoriesName" class="col-sm-4 control-label">Product Name: </label>
 						<label class="col-sm-1 control-label">: </label>
 						<div class="col-sm-7">
 							<input type="text" class="form-control" id="categoriesName" placeholder="Categories Name"
@@ -135,7 +134,7 @@ while ($row = $result->fetch_row()) {
 				<div class="modal-header">
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
 							aria-hidden="true">&times;</span></button>
-					<h4 class="modal-title"><i class="fa fa-edit"></i> Edit Brand</h4>
+					<h4 class="modal-title"><i class="fa fa-edit"></i> Edit Product</h4>
 				</div>
 				<div class="modal-body">
 
@@ -149,7 +148,7 @@ while ($row = $result->fetch_row()) {
 
 					<div class="edit-categories-result">
 						<div class="form-group">
-							<label for="editCategoriesName" class="col-sm-4 control-label">Sub Categories Name: </label>
+							<label for="editCategoriesName" class="col-sm-4 control-label">Product Name: </label>
 							<label class="col-sm-1 control-label">: </label>
 							<div class="col-sm-7">
 								<input type="text" class="form-control" id="editCategoriesName"

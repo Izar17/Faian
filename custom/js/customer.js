@@ -5,11 +5,13 @@ $(document).ready(function() {
 	$('#navCustomer').addClass('active');
 	
 	// manage brand table
-	manageCustomerTable = $("#manageCustomerTable").DataTable({
-		'ajax': 'php_action/fetchCustomer.php',
-		'order': []		
+	var manageCustomerTable = $("#manageCustomerTable").DataTable({
+		'ajax': 'php_action/fetchCustomer.php'	,
+		'order': [],
+        'dom': 'Bfrtip',
+        'buttons': ['copy', 'csv', 'excel', 'pdf', 'print']
 	});
-
+ 
 	// submit brand form function
 	$("#submitLayawayForm").unbind('submit').bind('submit', function() {
 		// remove the error text

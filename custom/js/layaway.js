@@ -9,7 +9,9 @@ $(document).ready(function() {
 	// manage brand table
 	manageLayawayTable = $("#manageLayawayTable").DataTable({
 		'ajax': 'php_action/fetchLayaway.php?contId='+contId,
-		'order': []		
+		'order': [],
+        'dom': 'Bfrtip',
+        'buttons': ['copy', 'csv', 'excel', 'pdf', 'print']
 	});
 
 	// submit brand form function

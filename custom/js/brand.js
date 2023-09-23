@@ -6,8 +6,10 @@ $(document).ready(function () {
 
   // manage brand table
   manageBrandTable = $("#manageBrandTable").DataTable({
-    ajax: "php_action/fetchBrand.php",
-    order: [],
+    'ajax': "php_action/fetchBrand.php",
+    'order': [],
+    'dom': 'Bfrtip',
+    'buttons': ['copy', 'csv', 'excel', 'pdf', 'print']
   });
 
   // submit brand form function

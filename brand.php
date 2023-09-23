@@ -21,7 +21,7 @@
 					<button class="btn btn-default button1" data-toggle="modal" data-target="#addBrandModel"> <i class="glyphicon glyphicon-plus-sign"></i> Add Category </button>
 				</div> <!-- /div-action -->				
 				
-				<table class="table" id="manageBrandTable">
+				<table class="table table-bordered table-striped table-hover datatable datatable-Customer" id="manageBrandTable">
 					<thead>
 						<tr>							
 							<th>Category Name</th>

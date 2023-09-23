@@ -27,7 +27,7 @@ if($result->num_rows > 0) {
 	    Action <span class="caret"></span>
 	  </button>
 	  <ul class="dropdown-menu">
-	  <li><a  type="button" onclick="manageLayaway('.$orderId.','.$contId.')"><i class="glyphicon glyphicon-plus-sign"></i> Manage Layaway</a></li>
+	  <li><a  type="button" onclick="manageLayaway('.$orderId.','.$contId.')"><i class="glyphicon glyphicon-plus-sign"></i> Manage Payment</a></li>
 	  <li><a type="button" data-toggle="modal" data-target="#editCustomerModel" onclick="editCustomer('.$orderId.')"> <i class="glyphicon glyphicon-edit"></i> Edit</a></li>
 	  <li><a type="button" data-toggle="modal" data-target="#removeCustomerModal" onclick="removeCustomer('.$orderId.')"> <i class="glyphicon glyphicon-trash"></i> Remove</a></li>       
 	  </ul>

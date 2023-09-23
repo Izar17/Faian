@@ -443,7 +443,7 @@ function addRow() {
 					tr += '</select>'+
 				'</td>'+
 				'<td style="padding-left:20px;"">'+
-					'<input type="text" name="rate[]" id="rate'+count+'" autocomplete="off" disabled="true" class="form-control" />'+
+					'<input type="text" name="rate[]" id="rate'+count+'" autocomplete="off" class="form-control" />'+
 					'<input type="hidden" name="rateValue[]" id="rateValue'+count+'" autocomplete="off" class="form-control" />'+
 				'</td style="padding-left:20px;">'+
 				'<td style="padding-left:20px;">'+

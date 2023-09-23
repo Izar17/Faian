@@ -1,90 +1,66 @@
-<?php 
+<?php
 
 require_once 'core.php';
 
-if($_POST) {
-
-	$startDate = $_POST['startDate'];
-	$date = DateTime::createFromFormat('m/d/Y',$startDate);
-	$start_date = $date->format("m/d/Y");
+$startDate = $_GET['startDate'];
+$date = DateTime::createFromFormat('m/d/Y', $startDate);
+$start_date = $date->format("m/d/Y");
 
 
-	$endDate = $_POST['endDate'];
-	$format = DateTime::createFromFormat('m/d/Y',$endDate);
-	$end_date = $format->format("m/d/Y");
+$endDate = $_GET['endDate'];
+$format = DateTime::createFromFormat('m/d/Y', $endDate);
+$end_date = $format->format("m/d/Y");
 
-	echo"<br> <h2> Sales </h2>";
-	$sql = "SELECT * FROM orders WHERE order_date >= '$start_date' AND order_date <= '$end_date' and order_status = 1";
-	$query = $connect->query($sql);
-
-	$table = '<table border="1" cellspacing="0" cellpadding="0" style="width:100%; id="manageReportTable">
-		<tr>
-			<th>Order ID</th>
-			<th>Order Date</th>
-			<th>Client Name</th>
-			<th>Contact</th>
-			<th>Grand Total</th>
-		</tr>
-		<tr>';
-		$totalAmount = 0;
-		while ($result = $query->fetch_assoc()) {
-			$table .= '<tr>
-				<td><center>'.$result['order_id'].'</center></td>
-				<td><center>'.$result['order_date'].'</center></td>
-				<td><center>'.$result['client_name'].'</center></td>
-				<td><center>'.$result['client_contact'].'</center></td>
-				<td><center>'.$result['grand_total'].'</center></td>
-			</tr>';	
-			$totalAmount = $totalAmount + $result['grand_total'];
-		}
-		$table .= '
-		</tr>
-		<tr>
-			<td colspan="3"><center>Total Amount</center></td>
-			<td><center>'.$totalAmount.'</center></td>
-		</tr>
-	</table>
-	';	
-
-	echo $table;
+$sql = "SELECT order_id, order_date, client_name, client_contact, grand_total FROM orders WHERE order_date >= '$start_date' AND order_date <= '$end_date' and order_status = 1";
+$result = $connect->query($sql);
 
 
+$sql2 = "SELECT order_id, order_date, c.name, client_contact, grand_total FROM layaway_orders 
+inner join customer c on c.id = layaway_orders.client_name
+WHERE order_date >= '$start_date' AND order_date <= '$end_date' and order_status = 1";
+$result2 = $connect->query($sql2);
 
-	echo"<br> <h2> Containers </h2>";
+$sum = 0; // Initialize the sum variable
+$sum2 = 0;
 
-	$sql = "SELECT * FROM orders WHERE order_date >= '$start_date' AND order_date <= '$end_date' and order_status = 1";
-	$query = $connect->query($sql);
+$output = array('data' => array());
 
-	$table = '<table border="1" cellspacing="0" cellpadding="0" style="width:100%; id="manageReportTable">
-		<tr>
-			<th>Order ID</th>
-			<th>Order Date</th>
-			<th>Client Name</th>
-			<th>Contact</th>
-			<th>Grand Total</th>
-		</tr>
-		<tr>';
-		$totalAmount = 0;
-		while ($result = $query->fetch_assoc()) {
-			$table .= '<tr>
-				<td><center>'.$result['order_id'].'</center></td>
-				<td><center>'.$result['order_date'].'</center></td>
-				<td><center>'.$result['client_name'].'</center></td>
-				<td><center>'.$result['client_contact'].'</center></td>
-				<td><center>'.$result['grand_total'].'</center></td>
-			</tr>';	
-			$totalAmount = $totalAmount + $result['grand_total'];
-		}
-		$table .= '
-		</tr>
-		<tr>
-			<td colspan="3"><center>Total Amount</center></td>
-			<td><center>'.$totalAmount.'</center></td>
-		</tr>
-	</table>
-	';	
 
-	echo $table;
+while ($row = $result->fetch_array()) {
+	// Extract and store the value from $row[4]
+	$value = floatval($row[4]); // Convert to float to handle decimal values
+
+	// Add the value to the sum
+	$sum += $value;
+	$output['data'][] = array(
+		$row[0],
+		$row[1],
+		$row[2],
+		$row[3],
+		$value,
+	);
+
 }
 
-?>
+
+while ($row2 = $result2->fetch_array()) {
+	// Extract and store the value from $row[4]
+	$value = floatval($row2[4]); // Convert to float to handle decimal values
+
+	// Add the value to the sum
+	$sum2 += $value;
+	$output['data'][] = array(
+		$row2[0],
+		$row2[1],
+		$row2[2],
+		$row2[3],
+		$value,
+	);
+
+}
+
+$connect->close();
+// Add the sum to the output array
+$output['sum'] = $sum;
+
+echo json_encode($output, JSON_PRETTY_PRINT);

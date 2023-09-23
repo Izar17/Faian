@@ -26,7 +26,7 @@ else { $contLabel = "For Delivery";}
 					<button class="btn btn-default button1" data-toggle="modal"  onclick="addLayaway(<?php echo $contId;?>)"> <i class="glyphicon glyphicon-plus-sign"></i> Add</button>
 				</div> <!-- /div-action -->				
 				<input type="hidden" id="contId" value="<?php echo $contId;?>"/>
-				<table class="table" id="manageLayawayTable">
+				<table  class="table table-bordered table-striped table-hover datatable datatable-Customer" id="manageLayawayTable">
 					<thead>
 						<tr>							
 							<th>Customer Name</th>

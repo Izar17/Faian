@@ -215,10 +215,19 @@ $(document).ready(function() {
 		
 		manageOrderTable = $("#manageOrderTable").DataTable({
 			'ajax': 'php_action/fetchContainerOrder.php?orderId='+orderId+'&contId='+contId,
-			'order': []
+			'order': [],
+			'dom': 'Bfrtip',
+			'buttons': ['copy', 'csv', 'excel', 'pdf', 'print']
 		});		
 					
 	} else if(divRequest == 'editOrd') {
+
+		
+		manageOrderTable = $("#manageOrderTable").DataTable({
+			'order': [],
+			'dom': 'Bfrtip',
+			'buttons': ['copy', 'csv', 'excel', 'pdf', 'print']
+		});		
 		$("#orderDate").datepicker();
 		$("#dueDate").datepicker();
 

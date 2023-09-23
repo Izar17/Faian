@@ -49,7 +49,7 @@ if($result->num_rows > 0) {
 	  </button>
 	  <ul class="dropdown-menu">
 	  	<li><a href="addContainer.php?o=editOrd&i='.$orderId.'" id="editOrderModalBtn"> <i class="glyphicon glyphicon-edit"></i> View Payment Details</a></li>
-	    <li><a type="button" data-toggle="modal" id="paymentOrderModalBtn" data-target="#paymentOrderModal" onclick="paymentOrder('.$orderId.')"> <i class="glyphicon glyphicon-save"></i> Payment</a></li>
+	    <li><a type="button" data-toggle="modal" id="paymentOrderModalBtn" data-target="#paymentOrderModal" onclick="paymentOrder('.$orderId.')"> <i class="glyphicon glyphicon-save"></i> Edit Payment</a></li>
 	    <li><a type="button" onclick="printOrder('.$orderId.')"> <i class="glyphicon glyphicon-print"></i> Print </a></li>	
 		<li><a type="button" data-toggle="modal" data-target="#removeOrderModal" id="removeOrderModalBtn" onclick="releaseItem('.$orderId.')"> <i class="glyphicon glyphicon-trash"></i> Release Item</a></li>       
 		

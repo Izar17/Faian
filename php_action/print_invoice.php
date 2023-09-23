@@ -105,7 +105,7 @@ $orderItemResult = $connect->query($orderItemSql);
             $table1 .='
             <tr><td colspan="3">______________________</td></tr>
             <tr class="service">
-                <td class="tableitem"><p class="itemtext">Total Paid:</p></td><td class="tableitem"><p class="itemprice">P'.number_format($totalAmount,2).'</p></td>
+                <td class="tableitem"><p class="itemtext">Total Amount:</p></td><td class="tableitem"><p class="itemprice">P'.number_format($totalAmount,2).'</p></td>
             </tr>
             <tr class="service">
                 <td class="tableitem"><p class="itemtext">Change:</p></td><td class="tableitem"><p class="itemprice">- P'.number_format($due,2).'</p></td>

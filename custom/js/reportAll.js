@@ -1,6 +1,6 @@
 $(document).ready(function () {
   // top nav bar
-  $("#navOrder").addClass("active");
+  $("#navInventory").addClass("active");
   // order date picker
   $("#startDate").datepicker();
   // order date picker
@@ -38,8 +38,8 @@ $(document).ready(function () {
 
         var form = $(this);
 
-		manageOrderTable = $("#manageReportTable").DataTable({
-			'ajax': 'php_action/getOrderReport.php?startDate='+startDate+'&endDate='+endDate,
+		manageOrderTable = $("#manageAllReportTable").DataTable({
+			'ajax': 'php_action/getAllTransactReport.php?startDate='+startDate+'&endDate='+endDate,
 			'order': [],
 			'dom': "Bfrtip",
 			'buttons': ["copy", "csv", "excel", "pdf", "print"],
