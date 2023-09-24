@@ -179,7 +179,7 @@ while ($rowExpenses = $resultExpenses->fetch_row()) {
 }
 
 //Actual Revenue input by staff
-$sqlActRev = "SELECT cash, ewallet, bank, credit_card, user_id from eod_revenue where cur_date = '$curDate'";
+$sqlActRev = "SELECT cash, ewallet, bank, credit_card, user_id from eod_revenue where cur_date = '$curDate' and user_id = $user_id";
 $resultActRev = $connect->query($sqlActRev);
 while ($rowActRev = $resultActRev->fetch_row()) {
 	list($actRevCash, $actRevEwallet, $actRevBank, $actRevCc, $staff) = $rowActRev;
@@ -393,7 +393,7 @@ $totalRevenue = ($paymentToday + $paymentTodayOrd) - $expensesToday;
 							$resulttotalGQ = $connect->query($sqltotalGQs);
 							while ($rowtotalGQ = $resulttotalGQ->fetch_row()) {
 								list($brand_name, $price, $actual_weight, $brand_type) = $rowtotalGQ;
-								$actual_weight = number_format($actual_weight, 2) + 0;
+								$actual_weight = number_format($actual_weight, 2);
 								if ($brand_type == 2) {
 									$price = "Price is Per/Qty";
 									$sku = " Piece(s)";

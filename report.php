@@ -15,14 +15,14 @@
 						<label for="startDate" class="col-sm-2 control-label">Start Date</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="startDate" name="startDate"
-								placeholder="Start Date"/>
+								placeholder="Start Date" style="width:25%;"/>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="endDate" class="col-sm-2 control-label">End Date</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="endDate" name="endDate"
-								placeholder="End Date" />
+								placeholder="End Date"  style="width:25%;"/>
 						</div>
 					</div>
 					<div class="form-group">

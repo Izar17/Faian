@@ -70,7 +70,7 @@ $actRevCc = 0; ?>
 
           <?php if (isset($_SESSION['userId']) && $_SESSION['userId'] != 1) {
 
-            $sqlShift = "SELECT * FROM eod_revenue WHERE cur_date = '$curDate' and user_id = $user_id";
+            $sqlShift = "SELECT * FROM eod_revenue WHERE cur_date = '$curDate' and user_id = $user_id and status != 1";
             $resultShift = $connect->query($sqlShift);
 
             if ($resultShift->num_rows == 1) {
@@ -101,7 +101,8 @@ $actRevCc = 0; ?>
                       Orders</a></li>
                   <li id="topNavManageOrder"><a href="orders.php?o=manord"> <i class="glyphicon glyphicon-edit"></i> Manage
                       Orders</a></li>
-                  <li id="navReport"><a href="report.php"> <i class="glyphicon glyphicon-check"></i> Report </a></li>
+                  <li id="navSettlement"><a href="settlement.php"> <i class="glyphicon glyphicon-check"></i> Sales Settlement Reports </a></li>
+                  <li id="navReport"><a href="report.php"> <i class="glyphicon glyphicon-check"></i> Reports </a></li>
                 </ul>
               </li>
               <li id="navManageInventory"><a href="inventory.php"><i class="glyphicon glyphicon-list-alt"></i> Inventory</a>
@@ -142,7 +143,9 @@ $actRevCc = 0; ?>
                     Orders</a></li>
                 <li id="topNavManageOrder"><a href="orders.php?o=manord"> <i class="glyphicon glyphicon-edit"></i> Manage
                     Orders</a></li>
-                <li id="navReport"><a href="report.php"> <i class="glyphicon glyphicon-check"></i> Report </a></li>
+                    
+                <li id="navSettlement"><a href="settlement.php"> <i class="glyphicon glyphicon-check"></i> Sales Settlement Reports </a></li>
+                <li id="navReport"><a href="report.php"> <i class="glyphicon glyphicon-check"></i> Reports </a></li>
               </ul>
             </li>
 

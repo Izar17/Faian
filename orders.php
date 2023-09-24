@@ -508,21 +508,7 @@ if($_GET['o'] == 'add') {
 				      	} ?> >No Payment</option>
 				      </select>
 				    </div>
-				  </div> <!--/form-group-->
-				  <div class="form-group">
-				    <label for="clientContact" class="col-sm-3 control-label">Payment Place</label>
-				    <div class="col-sm-9">
-				      <select class="form-control" name="paymentPlace" id="paymentPlace">
-				      	<option value="">~~SELECT~~</option>
-				      	<option value="1" <?php if($data[13] == 1) {
-				      		echo "selected";
-				      	} ?>  >In Gujarat</option>
-				      	<option value="2" <?php if($data[13] == 2) {
-				      		echo "selected";
-				      	} ?> >Out Gujarat</option>
-				      </select>
-				    </div>
-				  </div>							  
+				  </div> <!--/form-group-->						  
 			  </div> <!--/col-md-6-->
 
 
