@@ -8,6 +8,8 @@ $(document).ready(function() {
 	manageCategoriesTable = $('#manageCategoriesTable').DataTable({
 		'ajax' : 'php_action/fetchCategories.php?brandId='+brandId+'&brandType='+brandType,
 		'order': [],
+		'lengthMenu': [10, 25, 50, 100], // Set the available page lengths
+		'pageLength': 10, // Set the default page length
 		'dom': 'Bfrtip',
 		'buttons': ['copy', 'csv', 'excel', 'pdf', 'print']
 	}); // manage categories Data Table

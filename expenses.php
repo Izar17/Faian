@@ -21,7 +21,7 @@
 					<button class="btn btn-default button1" data-toggle="modal" data-target="#addLayawayModel"> <i class="glyphicon glyphicon-plus-sign"></i> Add </button>
 				</div> <!-- /div-action -->				
 				
-				<table class="table" id="manageExpensesTable">
+				<table class="table table-bordered table-striped table-hover datatable datatable-Customer" id="manageExpensesTable">
 					<thead>
 						<tr>							
 							<th>Expenses Detail</th>

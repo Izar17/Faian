@@ -37,24 +37,36 @@ $(document).ready(function () {
         $(".text-danger").remove();
 
         var form = $(this);
+        // Destroy the existing DataTable (if it exists)
+        if ($.fn.DataTable.isDataTable("#manageReportTable")) {
+          $("#manageReportTable").DataTable().destroy();
+        }
 
-		manageOrderTable = $("#manageReportTable").DataTable({
-			'ajax': 'php_action/getOrderReport.php?startDate='+startDate+'&endDate='+endDate,
-			'order': [],
-			'dom': "Bfrtip",
-			'buttons': ["copy", "csv", "excel", "pdf", "print"],
-			'footerCallback': function(row, data, start, end, display) {
-				var api = this.api();
-		
-				// Calculate the sum of the "Grand Total" column (column index 4)
-				var sum = api.column(4, { page: 'current' }).data().reduce(function(a, b) {
-					return parseFloat(a) + parseFloat(b);
-				}, 0);
-		
-				// Display the sum in the footer
-				$(api.column(4).footer()).html(sum);
-			}
-		  });
+        // Initialize the new DataTable
+        manageOrderTable = $("#manageReportTable").DataTable({
+          ajax:
+            "php_action/getOrderReport.php?startDate=" +
+            startDate +
+            "&endDate=" +
+            endDate,
+          order: [],
+          dom: "Bfrtip",
+          buttons: ["copy", "csv", "excel", "pdf", "print"],
+          footerCallback: function (row, data, start, end, display) {
+            var api = this.api();
+
+            // Calculate the sum of the "Grand Total" column (column index 4)
+            var sum = api
+              .column(4, { page: "current" })
+              .data()
+              .reduce(function (a, b) {
+                return parseFloat(a) + parseFloat(b);
+              }, 0);
+
+            // Display the sum in the footer
+            $(api.column(4).footer()).html(sum);
+          },
+        });
       } // /else
 
       return false;

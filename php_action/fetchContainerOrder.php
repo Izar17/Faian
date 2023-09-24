@@ -4,8 +4,11 @@ require_once 'core.php';
 $orderId = $_GET['orderId'];
 $contId = $_GET['contId'];
 
-$sql = "SELECT la.order_id, la.order_date, c.name, la.client_contact, la.payment_status, la.due, la.due_date, la.paid, la.grand_total, la.release_date FROM layaway_orders la
+$sql = "SELECT la.order_id, la.order_date, c.name, la.client_contact, la.payment_status, la.due, la.due_date, la.paid, la.grand_total, la.release_date, loi.quantity, p.product_name, b.brand_type FROM layaway_orders la
  INNER JOIN customer c ON la.client_name = c.id
+ INNER JOIN layaway_order_item loi ON loi.order_id = la.order_id
+ INNER JOIN product p ON p.product_id = loi.product_id
+ INNER JOIN brands b ON b.brand_id = p.brand_id
  WHERE la.order_status = 1 and la.order_id = '$orderId' and la.order_type = '$contId'";
 $result = $connect->query($sql);
 
@@ -38,10 +41,15 @@ if($result->num_rows > 0) {
 		$paymentStatus = "<label class='label label-warning'>Installment</label>";
 	} // /else
 
+	if($row[12] == 1){
+		$productDetail = $row[11].': '. $row[10].'g';
+	}else{
+		$productDetail = $row[11].': '. $row[10].'pc';
+	}
 	 $grandTotal = 'P'.number_format($row[8],2).'';
 	 $due = 'P'.number_format($row[5],2).'';
 	 $paid = 'P'.number_format($row[7],2).'';
-
+	 
  	$button = '<!-- Single button -->
 	<div class="btn-group">
 	  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -60,13 +68,15 @@ if($result->num_rows > 0) {
 	    
  	$output['data'][] = array( 		
  		// image
- 		$x,
+ 		//$x,
  		// Order No.
  		$row[0], 
  		// client name
  		$row[2], 
  		// client contact
- 		$row[3], 		 
+ 		$row[3], 	
+ 		// total Qty
+ 		$productDetail, 		 
  		$itemCountRow, 		
  		// order date
  		$row[1],		

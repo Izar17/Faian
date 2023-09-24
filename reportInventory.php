@@ -108,10 +108,23 @@ $resultGrams = $connect->query($sqlGrams);
 while($rowGrams = $resultGrams->fetch_row()) {
 	list($totalGrams) = $rowGrams;
 }
+//Container Remaining Qty
+$sqlRqty = "SELECT sum(loi.quantity) from layaway_order_item loi inner join layaway_orders lo on loi.order_id = lo.order_id 
+inner join product p on p.product_id = loi.product_id
+inner join brands b on b.brand_id = p.brand_id
+where lo.payment_status !=4 and b.brand_type = 2";
+$resultRqty = $connect->query($sqlRqty);
+while($rowRqty = $resultRqty->fetch_row()) {
+	list($Rqty) = $rowRqty;
+	$Rqty+=0;
+ }
 
 
 //Layaway Remaining Stocks
-$sqlLRS = "SELECT sum(loi.quantity) from layaway_order_item loi inner join layaway_orders lo on loi.order_id = lo.order_id where lo.order_type = 1 and payment_status !=4";
+$sqlLRS = "SELECT sum(loi.quantity) from layaway_order_item loi inner join layaway_orders lo on loi.order_id = lo.order_id 
+inner join product p on p.product_id = loi.product_id
+inner join brands b on b.brand_id = p.brand_id
+where lo.order_type = 1 and lo.payment_status !=4 and b.brand_type = 1";
 $resultLRS = $connect->query($sqlLRS);
 while($rowLRS = $resultLRS->fetch_row()) {
 	list($layawayRS) = $rowLRS;
@@ -119,7 +132,10 @@ while($rowLRS = $resultLRS->fetch_row()) {
  }
 
  //Reservation Remaining Stocks
- $sqlRRS = "SELECT sum(loi.quantity) from layaway_order_item loi inner join layaway_orders lo on loi.order_id = lo.order_id where lo.order_type = 2 and payment_status !=4";
+ $sqlRRS = "SELECT sum(loi.quantity) from layaway_order_item loi inner join layaway_orders lo on loi.order_id = lo.order_id 
+ inner join product p on p.product_id = loi.product_id
+ inner join brands b on b.brand_id = p.brand_id
+ where lo.order_type = 2 and lo.payment_status !=4 and b.brand_type = 1";
  $resultRRS = $connect->query($sqlRRS);
  while($rowRRS = $resultRRS->fetch_row()) {
 	 list($reservationRS) = $rowRRS;
@@ -127,7 +143,10 @@ while($rowLRS = $resultLRS->fetch_row()) {
   }
 
 //Pickup Remaining Stocks
-$sqlPRS = "SELECT sum(loi.quantity) from layaway_order_item loi inner join layaway_orders lo on loi.order_id = lo.order_id where lo.order_type = 3 and payment_status !=4";
+$sqlPRS = "SELECT sum(loi.quantity) from layaway_order_item loi inner join layaway_orders lo on loi.order_id = lo.order_id 
+inner join product p on p.product_id = loi.product_id
+inner join brands b on b.brand_id = p.brand_id
+where lo.order_type = 3 and lo.payment_status !=4 and b.brand_type = 1";
 $resultPRS = $connect->query($sqlPRS);
 while($rowPRS = $resultPRS->fetch_row()) {
 	list($pickupRS) = $rowPRS;
@@ -135,7 +154,10 @@ while($rowPRS = $resultPRS->fetch_row()) {
 }
 
 //Delivery Remaining Stocks
-$sqlDRS = "SELECT sum(loi.quantity) from layaway_order_item loi inner join layaway_orders lo on loi.order_id = lo.order_id where lo.order_type = 4 and payment_status !=4";
+$sqlDRS = "SELECT sum(loi.quantity) from layaway_order_item loi inner join layaway_orders lo on loi.order_id = lo.order_id 
+inner join product p on p.product_id = loi.product_id
+inner join brands b on b.brand_id = p.brand_id
+where lo.order_type = 4 and lo.payment_status !=4 and b.brand_type = 1";
 $resultDRS = $connect->query($sqlDRS);
 while($rowDRS = $resultDRS->fetch_row()) {
 	list($deliveryRS) = $rowDRS;
@@ -162,7 +184,7 @@ $totalRevenueTodayNoExpense = $actRevCash + $actRevEwallet + $actRevBank + $actR
 $totalRevenueToday = $totalRevenueTodayNoExpense-$expensesToday;
 
 //Main Remaining Stocks
-$mainRS=$totalGrams - ($layawayRS+$reservationRS+$pickupRS+$deliveryRS);
+$mainRS= $layawayRS+$reservationRS+$pickupRS+$deliveryRS;
 $totalRevenueNoExpense = $paymentToday + $paymentTodayOrd;
 $totalRevenue = ($paymentToday + $paymentTodayOrd)-$expensesToday;
 ?>
@@ -245,8 +267,9 @@ $totalRevenue = ($paymentToday + $paymentTodayOrd)-$expensesToday;
 			  			<th style="width:20%;">Main</th>
 			  			<th style="width:20%;">Layaway</th>
 			  			<th style="width:20%;">Reservation</th>
-			  			<th style="width:20%;">For Pick-Up</th>
-			  			<th style="width:20%;">For Delivery</th>
+			  			<th style="width:15%;">For Pick-Up</th>
+			  			<th style="width:15%;">For Delivery</th>
+			  			<th style="width:15%;">Per Piece</th>
 			  		</tr>
 			  	</thead>
 			  	<tbody>
@@ -256,6 +279,7 @@ $totalRevenue = ($paymentToday + $paymentTodayOrd)-$expensesToday;
 							<td><?php echo ''.$reservationRS.'g';?></td>
 							<td><?php echo ''.$pickupRS.'g';?></td>
 							<td><?php echo ''.$deliveryRS.'g';?></td>
+							<td><strong><?php echo ''.$Rqty.'pc';?></strong></td>
 						</tr>
 				</tbody>
 				</table>
@@ -276,7 +300,7 @@ $totalRevenue = ($paymentToday + $paymentTodayOrd)-$expensesToday;
 							$resulttotalGQ = $connect->query($sqltotalGQs);
 							while($rowtotalGQ = $resulttotalGQ->fetch_row()) {
 								list($brand_name, $price, $actual_weight, $brand_type) = $rowtotalGQ;
-								$actual_weight = intval($actual_weight)+0;
+								// $actual_weight = intval($actual_weight)+0;
 								if($brand_type == 2){
 									$price = "Price is Per/Qty";
 									$sku = " Piece(s)";
@@ -331,7 +355,7 @@ $totalRevenue = ($paymentToday + $paymentTodayOrd)-$expensesToday;
 									<td>$n.</td>
 									<td>$brand_names </td>
 									<td>$prices</td>
-									<th>$brandQty$sku</th>
+									<th>".number_format($brandQty,2)."$sku</th>
 									</tr>";
 									$sqlSubCat = "SELECT c.categories_id,c.categories_name, i.qty FROM categories c inner join inventory i on c.categories_id = i.categories_id WHERE c.brand_id = $brand_id and c.categories_status = 1 and i.date = '$curDate'";
 									$resultSubCat = $connect->query($sqlSubCat);

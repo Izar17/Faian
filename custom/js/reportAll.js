@@ -38,7 +38,13 @@ $(document).ready(function () {
 
         var form = $(this);
 
-		manageOrderTable = $("#manageAllReportTable").DataTable({
+        // Destroy the existing DataTable (if it exists)
+        if ($.fn.DataTable.isDataTable("#manageAllReportTable")) {
+          $("#manageAllReportTable").DataTable().destroy();
+        }
+
+        // Initialize the new DataTable
+		  manageOrderTable = $("#manageAllReportTable").DataTable({
 			'ajax': 'php_action/getAllTransactReport.php?startDate='+startDate+'&endDate='+endDate,
 			'order': [],
 			'dom': "Bfrtip",

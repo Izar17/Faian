@@ -7,7 +7,9 @@ $(document).ready(function() {
 	// manage brand table
 	manageExpensesTable = $("#manageExpensesTable").DataTable({
 		'ajax': 'php_action/fetchExpenses.php',
-		'order': []		
+		'order': [],		
+        'dom': 'Bfrtip',
+        'buttons': ['copy', 'csv', 'excel', 'pdf', 'print']
 	});
 
 	// submit brand form function

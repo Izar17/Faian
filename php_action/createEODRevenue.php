@@ -23,7 +23,8 @@ if($_POST) {
 		ewallet = $actualEwallet,
 		bank = $actualBank,
 		credit_card = $actualCc,
-		user_id = $userId 
+		user_id = $userId,
+		time_out = $curDate
 		WHERE cur_date = '$curDate'";
 			if($connect->query($sql) === TRUE) {
 				$valid['success'] = true;
@@ -33,7 +34,7 @@ if($_POST) {
 				$valid['messages'] = "Error while adding the members";
 			}
 	} else {		
-		$sql = "INSERT INTO eod_revenue (cash, ewallet, bank, credit_card, user_id, cur_date) VALUES ('$actualCash', '$actualEwallet','$actualBank','$actualCc','$userId','$curDate')";		
+		$sql = "INSERT INTO eod_revenue (cash, ewallet, bank, credit_card, user_id, cur_date, time_in) VALUES ('$actualCash', '$actualEwallet','$actualBank','$actualCc','$userId','$curDate','$curDate')";		
 			if($connect->query($sql) === TRUE) {
 				$valid['success'] = true;
 				$valid['messages'] = "Successfully Added";	

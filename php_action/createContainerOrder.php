@@ -60,11 +60,11 @@ if($_POST) {
 		$totalQty=0;
 		while ($updateProductQuantityResult = $updateProductQuantityData->fetch_row()) {
 			$updateQuantity[$x] = $updateProductQuantityResult[0] - $_POST['quantity'][$x];			
-			if($paymentStatus == 4){		
+			if($paymentStatus == 2){		
 				// update brand table
 				$updateBrand = "UPDATE brands SET actual_weight = actual_weight - ".$_POST['quantity'][$x]." WHERE brand_id = ".$_POST['brandName'][$x]."";
 				$connect->query($updateBrand);			
-
+    
 				// update product table
 				$updateProductTable = "UPDATE product SET quantity = '".$updateQuantity[$x]."' WHERE product_id = ".$_POST['productName'][$x]."";
 				$connect->query($updateProductTable);

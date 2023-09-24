@@ -110,8 +110,23 @@ while($rowGrams = $resultGrams->fetch_row()) {
 }
 
 
+//Container Remaining Qty
+$sqlRqty = "SELECT sum(loi.quantity) from layaway_order_item loi inner join layaway_orders lo on loi.order_id = lo.order_id 
+inner join product p on p.product_id = loi.product_id
+inner join brands b on b.brand_id = p.brand_id
+where lo.payment_status !=4 and b.brand_type = 2";
+$resultRqty = $connect->query($sqlRqty);
+while($rowRqty = $resultRqty->fetch_row()) {
+	list($Rqty) = $rowRqty;
+	$Rqty+=0;
+ }
+
+
 //Layaway Remaining Stocks
-$sqlLRS = "SELECT sum(loi.quantity) from layaway_order_item loi inner join layaway_orders lo on loi.order_id = lo.order_id where lo.order_type = 1 and payment_status !=4";
+$sqlLRS = "SELECT sum(loi.quantity) from layaway_order_item loi inner join layaway_orders lo on loi.order_id = lo.order_id 
+inner join product p on p.product_id = loi.product_id
+inner join brands b on b.brand_id = p.brand_id
+where lo.order_type = 1 and lo.payment_status !=4 and b.brand_type = 1";
 $resultLRS = $connect->query($sqlLRS);
 while($rowLRS = $resultLRS->fetch_row()) {
 	list($layawayRS) = $rowLRS;
@@ -119,7 +134,10 @@ while($rowLRS = $resultLRS->fetch_row()) {
  }
 
  //Reservation Remaining Stocks
- $sqlRRS = "SELECT sum(loi.quantity) from layaway_order_item loi inner join layaway_orders lo on loi.order_id = lo.order_id where lo.order_type = 2 and payment_status !=4";
+ $sqlRRS = "SELECT sum(loi.quantity) from layaway_order_item loi inner join layaway_orders lo on loi.order_id = lo.order_id 
+ inner join product p on p.product_id = loi.product_id
+ inner join brands b on b.brand_id = p.brand_id
+ where lo.order_type = 2 and lo.payment_status !=4 and b.brand_type = 1";
  $resultRRS = $connect->query($sqlRRS);
  while($rowRRS = $resultRRS->fetch_row()) {
 	 list($reservationRS) = $rowRRS;
@@ -127,7 +145,10 @@ while($rowLRS = $resultLRS->fetch_row()) {
   }
 
 //Pickup Remaining Stocks
-$sqlPRS = "SELECT sum(loi.quantity) from layaway_order_item loi inner join layaway_orders lo on loi.order_id = lo.order_id where lo.order_type = 3 and payment_status !=4";
+$sqlPRS = "SELECT sum(loi.quantity) from layaway_order_item loi inner join layaway_orders lo on loi.order_id = lo.order_id 
+inner join product p on p.product_id = loi.product_id
+inner join brands b on b.brand_id = p.brand_id
+where lo.order_type = 3 and lo.payment_status !=4 and b.brand_type = 1";
 $resultPRS = $connect->query($sqlPRS);
 while($rowPRS = $resultPRS->fetch_row()) {
 	list($pickupRS) = $rowPRS;
@@ -135,7 +156,10 @@ while($rowPRS = $resultPRS->fetch_row()) {
 }
 
 //Delivery Remaining Stocks
-$sqlDRS = "SELECT sum(loi.quantity) from layaway_order_item loi inner join layaway_orders lo on loi.order_id = lo.order_id where lo.order_type = 4 and payment_status !=4";
+$sqlDRS = "SELECT sum(loi.quantity) from layaway_order_item loi inner join layaway_orders lo on loi.order_id = lo.order_id 
+inner join product p on p.product_id = loi.product_id
+inner join brands b on b.brand_id = p.brand_id
+where lo.order_type = 4 and lo.payment_status !=4 and b.brand_type = 1";
 $resultDRS = $connect->query($sqlDRS);
 while($rowDRS = $resultDRS->fetch_row()) {
 	list($deliveryRS) = $rowDRS;
@@ -162,7 +186,7 @@ $totalRevenueTodayNoExpense = $actRevCash + $actRevEwallet + $actRevBank + $actR
 $totalRevenueToday = $totalRevenueTodayNoExpense-$expensesToday;
 
 //Main Remaining Stocks
-$mainRS=$totalGrams - ($layawayRS+$reservationRS+$pickupRS+$deliveryRS);
+$mainRS= $layawayRS+$reservationRS+$pickupRS+$deliveryRS;
 $totalRevenueNoExpense = $paymentToday + $paymentTodayOrd;
 $totalRevenue = ($paymentToday + $paymentTodayOrd)-$expensesToday;
 ?>
@@ -228,7 +252,7 @@ $totalRevenue = ($paymentToday + $paymentTodayOrd)-$expensesToday;
 		<div class="panel panel-default">
 			<div class="panel-heading"> <i class="glyphicon glyphicon-calendar"></i> Payment Type Revenue & Expenses | <?php echo $curDate; ?>
 			<div class="pull-right"> <a href="expenses.php"><button><i class="glyphicon glyphicon-plus-sign"></i> Add Expenses</button></a>
-				<button data-toggle="modal" data-target="#addEODModel"> <i class="glyphicon glyphicon-plus-sign"></i> Create End of Day Actual Revenue </button>
+				<button data-toggle="modal" data-target="#addEODModel"> <i class="glyphicon glyphicon-plus-sign"></i> Sales Settlement</button>
 			</div> <!-- /div-action -->	
 			</div>
 			<div class="panel-body">
@@ -339,7 +363,7 @@ $totalRevenue = ($paymentToday + $paymentTodayOrd)-$expensesToday;
 		<div class="panel panel-default">
 			<div class="panel-heading"> <i class="fa fa-money"></i> Expenses | <?php echo $curDate; ?>
 			<div class="pull-right"> <a href="expenses.php"><button><i class="glyphicon glyphicon-plus-sign"></i> Add Expenses</button></a>
-				<button data-toggle="modal" data-target="#addEODModel"> <i class="glyphicon glyphicon-plus-sign"></i> Create End of Day Actual Revenue </button>
+				<button data-toggle="modal" data-target="#addEODModel"> <i class="glyphicon glyphicon-plus-sign"></i> Sales Settlement</button>
 			</div> <!-- /div-action -->	
 			</div>
 			<div class="panel-body">		
@@ -420,7 +444,7 @@ $totalRevenue = ($paymentToday + $paymentTodayOrd)-$expensesToday;
 									<td>$n.</td>
 									<td>$brand_names </td>
 									<td>$prices</td>
-									<th>$brandQty$sku</th>
+									<th>".number_format($brandQty,2)."$sku</th>
 									</tr>";
 									$sqlSubCat = "SELECT c.categories_id,c.categories_name, i.qty FROM categories c inner join inventory i on c.categories_id = i.categories_id WHERE c.brand_id = $brand_id and c.categories_status = 1 and i.date = '$curDate'";
 									$resultSubCat = $connect->query($sqlSubCat);
@@ -437,7 +461,7 @@ $totalRevenue = ($paymentToday + $paymentTodayOrd)-$expensesToday;
 														<input type='hidden' value='$brand_id' name='brandId[]'/>
 														<input type='hidden' value='$categoriesName' name='subCategoryName[]'/>
 													</td>
-													<td><input type='number' value='$qty' name='subCategoryQty[]'/></td>
+													<td><input type='number' value='$qty' name='subCategoryQty[]'  step='0.01'/></td>
 												</tr>
 											</table>
 										</td></tr>";
@@ -457,7 +481,7 @@ $totalRevenue = ($paymentToday + $paymentTodayOrd)-$expensesToday;
 														<input type='hidden' value='$brand_id' name='brandId[]'/>
 														<input type='hidden' value='$categoriesName' name='subCategoryName[]'/>
 													</td>
-													<td><input type='number' name='subCategoryQty[]'/></td>
+													<td><input type='number' name='subCategoryQty[]' step='0.01'/></td>
 												</tr>
 											</table>
 										</td></tr>";
@@ -489,7 +513,7 @@ $totalRevenue = ($paymentToday + $paymentTodayOrd)-$expensesToday;
     	<form class="form-horizontal" id="submitEODForm" action="php_action/createEODRevenue.php" method="POST">
 	      <div class="modal-header">
 	        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-	        <h4 class="modal-title"><i class="fa fa-plus"></i> Create End of Day Actual Revenue</h4>
+	        <h4 class="modal-title"><i class="fa fa-plus"></i> Sales Settlement</h4>
 	      </div>
 	      <div class="modal-body">
 	      	<div id="add-eod-messages"></div>

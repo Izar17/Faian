@@ -918,7 +918,7 @@ function releaseItem(orderId = null) {
 				dataType: 'json',
 				success:function(response) {
 					$("#removeOrderBtn").button('reset');
-
+   
 					if(response.success == true) {
 
 						manageOrderTable.ajax.reload(null, false);

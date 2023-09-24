@@ -15,7 +15,7 @@
 						<label for="startDate" class="col-sm-2 control-label">Start Date</label>
 						<div class="col-sm-10">
 							<input type="text" class="form-control" id="startDate" name="startDate"
-								placeholder="Start Date" />
+								placeholder="Start Date"/>
 						</div>
 					</div>
 					<div class="form-group">

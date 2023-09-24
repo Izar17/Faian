@@ -291,12 +291,14 @@ if($_GET['o'] == 'add') {
 				    <label for="clientContact" class="col-sm-3 control-label">Payment Status</label>
 				    <div class="col-sm-9">
 
-
 				      <select class="form-control" name="paymentStatus" id="paymentStatus">
 				      	<option value="">~~SELECT~~</option>
 				      	<option value="2">Advance Payment</option>
+						
+					    <!-- <?php if($_GET['o'] != 'add') {  ?>
 				      	<option value="3">Installment Payment</option>
 				      	<option value="1">Full Payment</option>
+						<?php }?> -->
 				      </select>
 				    </div>
 				  </div> <!--/form-group-->	
@@ -331,10 +333,10 @@ if($_GET['o'] == 'add') {
 			<table class="table table-bordered table-striped table-hover datatable datatable-Customer" id="manageOrderTable">
 				<thead>
 					<tr>
-						<th>#</th>
 						<th>Order No.</th>
 						<th>Client Name</th>
 						<th>Contact</th>
+						<th>Item : Gram/Qty</th>
 						<th>Total Item</th>
 						<th>Order Date</th>
 						<th>Due Date</th>
@@ -357,9 +359,10 @@ if($_GET['o'] == 'add') {
 			<table class="table table-bordered table-striped table-hover datatable datatable-Customer" id="manageOrderTable">
 				<thead>
 					<tr>
-						<th>#</th>
+						<!-- <th>#</th> -->
 						<th>Order No.</th>
 						<th>Customer Name</th>
+						<th>Item : Gram/Qty</th>
 						<th>Amount to Pay</th>
 						<th>Paid Amount</th>
 						<th>Remaining Due</th>
